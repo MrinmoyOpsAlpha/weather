@@ -135,18 +135,3 @@ td:nth-child(11) {
   color: purple; /* Change color for sunset time values */
 }
 
-
-.autocomplete {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.autocomplete-item {
-  padding: 5px;
-  cursor: pointer;
-}
-
-.autocomplete-item:hover {
-  background-color: #f9f9f9;
-}

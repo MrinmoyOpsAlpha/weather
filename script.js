@@ -8,21 +8,52 @@ const options = {
 };
 
 const cities = [
-    { name: 'Delhi', rowId: 'delhiRow' },
-    { name: 'Mumbai', rowId: 'mumbaiRow' },
-    { name: 'Kolkata', rowId: 'kolkataRow' },
-    { name: 'Chennai', rowId: 'chennaiRow' }
-  ];
+  { name: 'Delhi', rowId: 'delhiRow' },
+  { name: 'Mumbai', rowId: 'mumbaiRow' },
+  { name: 'Kolkata', rowId: 'kolkataRow' },
+  { name: 'Chennai', rowId: 'chennaiRow' },
+  { name: 'Bengaluru', rowId: 'bengaluruRow' },
+  { name: 'Hyderabad', rowId: 'hyderabadRow' },
+  { name: 'Ahmedabad', rowId: 'ahmedabadRow' },
+  { name: 'Pune', rowId: 'puneRow' },
+  { name: 'Jaipur', rowId: 'jaipurRow' },
+  { name: 'Lucknow', rowId: 'lucknowRow' },
+  { name: 'Guwahati', rowId: 'guwahatiRow'},
+  { name: 'Shillong', rowId: 'shillongRow'},
+];
+
+const tbody = document.getElementById('cityRows');
+
+cities.forEach(city => {
+  const row = document.createElement('tr');
+  row.id = city.rowId;
+
+  const nameCell = document.createElement('th');
+  nameCell.scope = 'row';
+  nameCell.classList.add('text-center'); // Add the 'text-center' class
+  nameCell.textContent = city.name;
+  row.appendChild(nameCell);
+
+  for (let i = 0; i < 10; i++) {
+    const dataCell = document.createElement('td');
+    dataCell.classList.add('text-center'); // Add the 'text-center' class
+    row.appendChild(dataCell);
+  }
+
+  tbody.appendChild(row);
+});
+
+
   
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-  };
-  
+const formatTime = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  return `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+};
+
   
   const updateWeatherData = (city, rowId) => {
     fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city, options)

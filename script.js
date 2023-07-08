@@ -109,4 +109,28 @@ submit.addEventListener("click", (e)=>{
     e.preventDefault()
     getWeather(city.value)
 })
-getWeather("Silchar")
+
+
+const getUserLocation = () => {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6a33f578dac84e3aa7e6cb38f4b9175e`)
+        .then(response => response.json())
+        .then(data => {
+          const { city, town, village } = data.results[0].components;
+          const nearestCity = city || town || village; // Get the nearest big city name
+          getWeather(nearestCity);
+        })
+        .catch(err => console.error(err));
+    }, error => {
+      console.error(error);
+      // Handle geolocation error
+    });
+  } else {
+    console.error('Geolocation is not supported');
+    // Handle geolocation not supported
+  }
+};
+
+getUserLocation();
